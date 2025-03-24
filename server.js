@@ -274,7 +274,7 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
 const app = express();
 app.use(cors());
