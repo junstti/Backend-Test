@@ -281,7 +281,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Kết nối MongoDB
+const mongoose = require("mongoose");
+
+mongoose.set("strictQuery", true); // Thêm dòng này trước khi kết nối DB
+
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -291,10 +294,24 @@ async function connectDB() {
     console.log("🔗 Đã kết nối thành công với MongoDB!");
   } catch (error) {
     console.error("❌ Không thể kết nối MongoDB:", error);
-    process.exit(1);
   }
 }
 connectDB();
+
+// // Kết nối MongoDB
+// async function connectDB() {
+//   try {
+//     await mongoose.connect(process.env.MONGO_URI, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+//     console.log("🔗 Đã kết nối thành công với MongoDB!");
+//   } catch (error) {
+//     console.error("❌ Không thể kết nối MongoDB:", error);
+//     process.exit(1);
+//   }
+// }
+// connectDB();
 
 // Middleware xác thực token JWT
 function authenticateJWT(req, res, next) {
