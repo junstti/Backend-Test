@@ -269,6 +269,8 @@
 //   res.json({ message: "Chào mừng bạn! Đây là API bảo vệ", user: req.user });
 // });
 require("dotenv").config();
+console.log("🔍 MONGODB_URI từ .env:", process.env.MONGODB_URI); // Debug
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -333,25 +335,58 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema);
 
 // API Đăng nhập
-app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const user = await User.findOne({ username });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Sai tài khoản hoặc mật khẩu" });
-    }
-    const token = jwt.sign(
-      { username: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-    res.json({ success: true, token });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Lỗi server!" });
-  }
+
+app.use((req, res, next) => {
+  console.log(`📥 Request nhận được: ${req.method} ${req.url}`);
+  next();
 });
+app.get("/", (req, res) => {
+  res.send("🚀 Backend chạy thành công!");
+});
+
+app.post("/login", async (req, res) => {
+  console.log("📌 Đang xử lý POST /login");
+  res.json({ success: true, message: "Route hoạt động!" });
+});
+
+// app.post("/login", async (req, res) => {
+//   console.log("📌 Đang xử lý POST /login");
+//   const { username, password } = req.body;
+//   if (!username || !password) {
+//     return res
+//       .status(400)
+//       .json({ success: false, message: "Thiếu username hoặc password!" });
+//   }
+
+//   const user = await User.findOne({ username, password });
+//   if (!user) {
+//     return res
+//       .status(401)
+//       .json({ success: false, message: "Sai tài khoản hoặc mật khẩu!" });
+//   }
+
+//   res.json({ success: true, message: "Đăng nhập thành công!" });
+// });
+
+// app.post("/login", async (req, res) => {
+//   const { username, password } = req.body;
+//   try {
+//     const user = await User.findOne({ username });
+//     if (!user || !(await bcrypt.compare(password, user.password))) {
+//       return res
+//         .status(401)
+//         .json({ success: false, message: "Sai tài khoản hoặc mật khẩu" });
+//     }
+//     const token = jwt.sign(
+//       { username: user.username },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1h" }
+//     );
+//     res.json({ success: true, token });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: "Lỗi server!" });
+//   }
+// });
 
 // API Đăng ký
 app.post("/api/register", async (req, res) => {
