@@ -368,8 +368,34 @@ app.get("/", (req, res) => {
 //   res.json({ success: true, message: "Đăng nhập thành công!" });
 // });
 
+// app.post("/login", async (req, res) => {
+//   const { username, password } = req.body;
+//   try {
+//     const user = await User.findOne({ username });
+//     if (!user || !(await bcrypt.compare(password, user.password))) {
+//       return res
+//         .status(401)
+//         .json({ success: false, message: "Sai tài khoản hoặc mật khẩu" });
+//     }
+//     const token = jwt.sign(
+//       { username: user.username },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1h" }
+//     );
+//     res.json({ success: true, token });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: "Lỗi server!" });
+//   }
+// });
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Thiếu username hoặc password!" });
+  }
+
   try {
     const user = await User.findOne({ username });
     if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -377,11 +403,13 @@ app.post("/login", async (req, res) => {
         .status(401)
         .json({ success: false, message: "Sai tài khoản hoặc mật khẩu" });
     }
+
     const token = jwt.sign(
       { username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+
     res.json({ success: true, token });
   } catch (err) {
     res.status(500).json({ success: false, message: "Lỗi server!" });
