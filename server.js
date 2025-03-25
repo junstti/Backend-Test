@@ -344,10 +344,10 @@ app.get("/", (req, res) => {
   res.send("🚀 Backend chạy thành công!");
 });
 
-// app.post("/login", async (req, res) => {
-//   console.log("📌 Đang xử lý POST /login");
-//   res.json({ success: true, message: "Route hoạt động!" });
-// });
+app.post("/login", async (req, res) => {
+  console.log("📌 Đang xử lý POST /login");
+  res.json({ success: true, message: "Route hoạt động!" });
+});
 
 app.post("/login", async (req, res) => {
   console.log("📌 Đang xử lý POST /login");
