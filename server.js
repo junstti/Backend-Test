@@ -269,7 +269,7 @@
 //   res.json({ message: "Chào mừng bạn! Đây là API bảo vệ", user: req.user });
 // });
 require("dotenv").config();
-console.log("🔍 MONGODB_URI từ .env:", process.env.MONGODB_URI); // Debug
+// console.log("🔍 MONGODB_URI từ .env:", process.env.MONGODB_URI); // Debug
 
 const express = require("express");
 const path = require("path");
@@ -344,29 +344,29 @@ app.get("/", (req, res) => {
   res.send("🚀 Backend chạy thành công!");
 });
 
-app.post("/login", async (req, res) => {
-  console.log("📌 Đang xử lý POST /login");
-  res.json({ success: true, message: "Route hoạt động!" });
-});
+// app.post("/login", async (req, res) => {
+//   console.log("📌 Đang xử lý POST /login");
+//   res.json({ success: true, message: "Route hoạt động!" });
+// });
 
-app.post("/login", async (req, res) => {
-  console.log("📌 Đang xử lý POST /login");
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Thiếu username hoặc password!" });
-  }
+// app.post("/login", async (req, res) => {
+//   console.log("📌 Đang xử lý POST /login");
+//   const { username, password } = req.body;
+//   if (!username || !password) {
+//     return res
+//       .status(400)
+//       .json({ success: false, message: "Thiếu username hoặc password!" });
+//   }
 
-  const user = await User.findOne({ username, password });
-  if (!user) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Sai tài khoản hoặc mật khẩu!" });
-  }
+//   const user = await User.findOne({ username, password });
+//   if (!user) {
+//     return res
+//       .status(401)
+//       .json({ success: false, message: "Sai tài khoản hoặc mật khẩu!" });
+//   }
 
-  res.json({ success: true, message: "Đăng nhập thành công!" });
-});
+//   res.json({ success: true, message: "Đăng nhập thành công!" });
+// });
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
