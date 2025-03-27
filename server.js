@@ -435,10 +435,8 @@ app.get("/api/protected", authenticateJWT, (req, res) => {
 });
 
 // Khởi động server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));
 //const express = require("express");
-const app = express();
+
 const cors = require("cors");
 
 // Cấu hình CORS để cho phép request từ frontend
@@ -448,13 +446,29 @@ app.use(
 
 // Middleware để đọc body JSON
 app.use(express.json());
+const express = require("express");
+const cors = require("cors");
+app.use(express.json());
 
-app.post("/api/play_btn.php", (req, res) => {
-  console.log("Request received at /api/play_btn.php", req.body);
-  res.json({ message: "API Node.js đang chạy, không cần PHP nữa!" });
-});
+// Cấu hình CORS
+app.use(
+  cors({
+    origin: "https://frontend-publish.pages.dev",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
+// Import routes
+const playBtnRoute = require("./play_btn");
+const playBtn2Route = require("./play_btn2");
+
+// Dùng API
+app.use("/api/play_btn", playBtnRoute);
+app.use("/api/play_btn2", playBtn2Route);
+
+// Chạy server
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-  console.log(`Server đang chạy trên cổng ${PORT}`);
+  console.log(`🚀 Server chạy trên cổng ${PORT}`);
 });
