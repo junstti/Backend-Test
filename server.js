@@ -11,7 +11,7 @@ const app = express();
 // Cấu hình CORS cho frontend của bạn
 app.use(
   cors({
-    origin: "https://blueskyfrontendphp.pages.dev/",
+    origin: "https://blueskyfrontendphp.pages.dev",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
