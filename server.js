@@ -437,23 +437,20 @@ app.get("/api/protected", authenticateJWT, (req, res) => {
 // Khởi động server
 //const express = require("express");
 
-const cors = require("cors");
-
 // Cấu hình CORS để cho phép request từ frontend
 app.use(
-  cors({ origin: "https://frontend-publish.pages.dev", credentials: true })
+  cors({ origin: "https://blueskyfrontendphp.pages.dev/", credentials: true })
 );
 
 // Middleware để đọc body JSON
 app.use(express.json());
 const express = require("express");
-const cors = require("cors");
 app.use(express.json());
 
 // Cấu hình CORS
 app.use(
   cors({
-    origin: "https://frontend-publish.pages.dev",
+    origin: "https://blueskyfrontendphp.pages.dev/",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
