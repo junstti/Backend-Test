@@ -112,8 +112,8 @@ app.get("/api/protected", authenticateJWT, (req, res) => {
 });
 
 // Route xử lý ảnh từ play_btn và play_btn2
-const playBtnRoute = require("./play_btn");
-const playBtn2Route = require("./play_btn2");
+const playBtnRoute = require("./api/play_btn");
+const playBtn2Route = require("./api/play_btn2");
 app.use("/api/play_btn", playBtnRoute);
 app.use("/api/play_btn2", playBtn2Route);
 
