@@ -9,11 +9,28 @@ const mongoose = require("mongoose");
 const app = express();
 
 // Cấu hình CORS cho frontend của bạn
+// app.use(
+//   cors({
+//     origin: "https://blueskyfrontendphp.pages.dev",
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
+const allowedOrigins = [
+  "https://blueskyfrontendphp.pages.dev",
+  "https://www.protocolmaster.xyz",
+];
+
 app.use(
   cors({
-    origin: "https://blueskyfrontendphp.pages.dev",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
