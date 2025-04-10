@@ -9,7 +9,7 @@ console.log("🚀 Bắt đầu kết nối MongoDB...");
 // 🔗 URI từ biến môi trường hoặc hardcode tạm test
 const MONGO_URI =
   process.env.MONGO_URI ||
-  "mongodb+srv://<user>:<pass>@cluster0.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://adminn:25ltrSaTqHryc8CZ@cluster0.4mrma.mongodb.net/mydatabase?retryWrites=true&w=majority&appName=Cluster0";
 
 // Kết nối MongoDB
 mongoose
